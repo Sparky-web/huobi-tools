@@ -2,6 +2,8 @@ import axios_1 from "axios";
 import moment from "moment";
 import CryptoJS from "crypto-js";
 import HmacSHA256 from "crypto-js/hmac-sha256.js";
+import HttpsProxyAgent from 'https-proxy-agent'
+
 
 const DEFAULT_HEADERS = {
     'Content-Type': 'application/json;charset=utf-8',
@@ -14,7 +16,7 @@ var STATUS;
 })(STATUS || (STATUS = {}));
 
 class HuobiRestAPI {
-    constructor({accessKey, secretKey, proxy = false, hostname = 'api.huobi.pro', timeout = 30000}) {
+    constructor({accessKey, secretKey, proxy = false, hostname = 'api.huobi.pro', timeout = 5000}) {
         if (!accessKey || !secretKey) {
             throw 'Params Missing: accessKey or secretKey';
         }
@@ -113,7 +115,10 @@ class HuobiRestAPI {
 
     fetch(path, options) {
         const url = `${this.host}${path}`;
-        return axios_1.default(Object.assign(Object.assign(Object.assign({url}, options), this.httpsConfig), {proxy: this.proxy})).then((res) => {
+        return axios_1.default({
+            url, ...options, ...this.httpsConfig, httpsAgent: new HttpsProxyAgent(this.proxy),
+            httpAgent: new HttpsProxyAgent(this.proxy)
+        }).then((res) => {
             if (res.status !== 200) {
                 throw res;
             }

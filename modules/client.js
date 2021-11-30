@@ -16,7 +16,7 @@ function parseProxy(str) {
 function getHuobiApiClient(account) {
     return new HuobiRestAPI({
         accessKey: account.accessKey, secretKey: account.secretKey,
-        proxy: account.proxy ? parseProxy(account.proxy) : undefined,
+        proxy: account.proxy
     });
 }
 

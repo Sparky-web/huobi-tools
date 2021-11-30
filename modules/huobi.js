@@ -116,8 +116,9 @@ class HuobiRestAPI {
     fetch(path, options) {
         const url = `${this.host}${path}`;
         return axios_1.default({
-            url, ...options, ...this.httpsConfig, httpsAgent: new HttpsProxyAgent(this.proxy),
-            httpAgent: new HttpsProxyAgent(this.proxy)
+            url, ...options, ...this.httpsConfig,
+            httpsAgent: this.proxy ? new HttpsProxyAgent(this.proxy) : undefined,
+            httpAgent: this.proxy ? new HttpsProxyAgent(this.proxy) : undefined
         }).then((res) => {
             if (res.status !== 200) {
                 throw res;

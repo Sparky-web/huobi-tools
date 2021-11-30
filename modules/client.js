@@ -1,18 +1,5 @@
 import HuobiRestAPI from "./huobi.js";
 
-function parseProxy(str) {
-    const parsed = new URL(str)
-    return {
-        protocol: parsed.protocol.substr(0, parsed.protocol.length - 1),
-        host: parsed.hostname,
-        port: parsed.port,
-        auth: {
-            username: parsed.username,
-            password: parsed.password
-        }
-    }
-}
-
 function getHuobiApiClient(account) {
     return new HuobiRestAPI({
         accessKey: account.accessKey, secretKey: account.secretKey,

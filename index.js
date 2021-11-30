@@ -7,7 +7,6 @@ let account = {
     amount: 0.001,
     type: "trc-20",
     address: "0xf958E9006e9bB937c556933B2D8281DDd5C40450",
-    proxy: "http://rRgUV6:ELkxFp@194.242.126.187:8000"
 }
 
 let accounts = [account]
